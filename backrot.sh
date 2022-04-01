@@ -13,19 +13,21 @@ function backup {
 
     mkdir -p $destDir/daily $destDir/weekly $destDir/monthly $destDir/yearly
 
+    filename=$(basename $inPath)
+
     if (( $dayOfYear == 1 )); then
         timestamp=$(date --iso-8601=seconds)
-        mv $inPath $destDir/yearly/$timestamp.dump 
+        mv $inPath $destDir/yearly/$timestamp.$filename
     elif (( $dayOfMonth == 1 )); then
-        mv $inPath $destDir/monthly/$monthOfYear.dump 
+        mv $inPath $destDir/monthly/$monthOfYear.$filename
     elif (( $dayOfMonth == 8 )); then
-        mv $inPath $destDir/weekly/1.dump 
+        mv $inPath $destDir/weekly/1.$filename 
     elif (( $dayOfMonth == 15 )); then
-        mv $inPath $destDir/weekly/2.dump 
+        mv $inPath $destDir/weekly/2.$filename 
     elif (( $dayOfMonth == 22 )); then
-        mv $inPath $destDir/weekly/3.dump 
+        mv $inPath $destDir/weekly/3.$filename 
     else
-        mv $inPath $destDir/daily/$dayOfWeek.dump
+        mv $inPath $destDir/daily/$dayOfWeek.$filename
     fi
 }
 
